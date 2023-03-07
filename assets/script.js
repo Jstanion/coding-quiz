@@ -2,11 +2,13 @@
 let startButton = document.getElementById("startButton");
 let timeEl = document.getElementById("timer");
 let questionEl = document.getElementById("questionEl");
-let choiceEl = document.getElementById("choiceEl")
+let choiceEl = document.getElementById("choiceEl");
 let quizContainer = document.getElementById("quiz-container");
+let answerEl = document.getElementById("answerEl");
 
 //Create variables for timer, timeLeft, and currentQuestionIndex, and set them to initial values.
 let timer = 60;
+let score = 0;
 let timeLeft = 60;
 let currentQuestionIndex = 0;
 
@@ -67,26 +69,32 @@ startButton.textContent = "START QUIZ";
         // Attach an event listener to each answer choice button so that when the user clicks a button, it calls the checkAnswer function.
     
     //Create a function called checkAnswer that takes the user's answer as an argument.
+    let checkAnswer = function(userAnswer) {
+        // Use the currentQuestionIndex to retrieve the question object from the quizQuestions array.
+        let currentQuestion = quizQuestions[currentQuestionIndex];
+      
+        // Compare the user's answer to the correct answer for the current question.
+        if (userAnswer === currentQuestion.answer) {
+          // If the user's answer is correct, increment the score variable and display a message indicating the answer is correct.
+          score++;
+          answerEl.textContent = "Correct!";
+        } else {
+          // If the user's answer is incorrect, decrement the timeLeft variable by 10 seconds and display a message indicating the answer is incorrect.
+          timeLeft -= 10;
+          answerEl.textContent = "Incorrect!";
+        };
+      
+        // Increment the currentQuestionIndex to move to the next question.
+        currentQuestionIndex++;
+      
+        // If there are no more questions left, call the endGame function. Otherwise, call the displayQuestion function to display the next question.
+        if (currentQuestionIndex >= quizQuestions.length) {
+          endGame();
+        } else {
+          displayQuestion();
+        }
+      };
     
-    
-    // Use the currentQuestionIndex to retrieve the question object from the quizQuestions array.
-    
-    
-    // Compare the user's answer to the correct answer for the current question.
-    
-    
-    // If the user's answer is correct, increment the score variable and display a message indicating the answer is correct.
-    
-    
-    // If the user's answer is incorrect, decrement the timeLeft variable by 10 seconds and display a message indicating the answer is incorrect.
-    
-    
-    // Increment the currentQuestionIndex to move to the next question.
-    
-    
-    // If there are no more questions left, call the endGame function. Otherwise, call the displayQuestion function to display the next question.
-    
-
 // Create a function to start the game when the user clicks the start button. This function should initialize the global variables, start the timer, and display the first question.
     //    Create a function called startGame.
     let startQuiz = function() {
@@ -118,7 +126,6 @@ startButton.textContent = "START QUIZ";
         displayQuestion();
     };
     
-// Create a function to end the game when all questions have been answered or the timer has reached 0. This function should stop the timer, display the final score on the screen, and provide a way for the user to enter their initials and save their score.
     //Create a function called endGame.
     function endGame() {
 
@@ -126,7 +133,7 @@ startButton.textContent = "START QUIZ";
         clearInterval(timer);
         
         // Display the final score on the screen.
-        
+        questionEl.textContent = 
         
         // Provide a form for the user to enter their initials and save their score.
     }
