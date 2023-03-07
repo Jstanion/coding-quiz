@@ -22,7 +22,8 @@ startButton.textContent = "START QUIZ";
 // Styling attributes
 headerEl.setAttribute("style", "font-family: Arial, sans-serif; display: flex; flex-direction: row; justify-content: space-between; color: green;");
 quizContainer.setAttribute("style", "font-family: Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center;");
-choiceEl.setAttribute("style", "width: 40rem;");
+choiceEl.setAttribute("style", "width: 40rem; text-align: center");
+startButton.setAttribute("style", "background-color: green; color: white; border-radius: 25px;")
 
 //Create an array of objects called quizQuestions, where each object has a question property, a choices property which is an array of answer choices, and an answer property that stores the correct answer.
 let quizQuestions = [
@@ -55,7 +56,7 @@ let quizQuestions = [
 
 //Create a function called displayQuestion.
 let displayQuestion = function() {
-    
+
     // Use the currentQuestionIndex to retrieve the question object from the quizQuestions array.
     let currentQuestion = quizQuestions[currentQuestionIndex];
 
@@ -69,6 +70,10 @@ let displayQuestion = function() {
         button.textContent = choice;
         choiceEl.appendChild(button);
         
+        // Styling attributes
+        choiceEl.setAttribute("style", "display: flex; flex-direction: column; justify-content: center; align-items: center;")
+        button.setAttribute("style", "background-color: green; color: white; border-radius: 25px; margin: 10px;");
+
         // Attach an event listener to each answer choice button so that when the user clicks a button, it calls the checkAnswer function.
         button.addEventListener("click", function() {
             checkAnswer(choice);
