@@ -1,8 +1,9 @@
 //declare all global variables here
-let buttonEl = document.getElementById("buttonEl");
+let startButton = document.getElementById("startButton");
 let timeEl = document.getElementById("timer");
 let questionEl = document.getElementById("questionEl");
 let choiceEl = document.getElementById("choiceEl")
+let quizContainer = document.getElementById("quiz-container");
 
 //Create variables for timer, timeLeft, and currentQuestionIndex, and set them to initial values.
 let timer = 60;
@@ -12,9 +13,8 @@ let currentQuestionIndex = 0;
 //initial page rendering
 questionEl.textContent = "Coding Quiz Challenge";
 choiceEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
-buttonEl.textContent = "START QUIZ";
+startButton.textContent = "START QUIZ";
 
-// Define an array of objects to store the quiz questions, where each object contains the question text, an array of answer choices, and the correct answer.
     //Create an array of objects called quizQuestions, where each object has a question property, a choices property which is an array of answer choices, and an answer property that stores the correct answer.
     let quizQuestions = [
         {
@@ -44,22 +44,28 @@ buttonEl.textContent = "START QUIZ";
         }
     ];
 
-
-// Create a function to display a question on the screen. This function should use the current question index to retrieve the question object from the array, and then display the question text and answer choices on the screen.
     //Create a function called displayQuestion.
-let displayQuestion = function() {
-
+    let displayQuestion = function() {
+        
+        // Use the currentQuestionIndex to retrieve the question object from the quizQuestions array.
+        let currentQuestion = quizQuestions[currentQuestionIndex];
     
-    // Use the currentQuestionIndex to retrieve the question object from the quizQuestions array.
+        // Display the question on the screen.
+        questionEl.textContent = currentQuestion.question;
+            
+        // Display the answer choices on the screen.
+        choiceEl.innerHTML = "";
+        currentQuestion.choices.forEach(function(choice) {
+            let button = document.createElement("button");
+            button.textContent = choice;
+            choiceEl.appendChild(button);
+            button.addEventListener("click", function() {
+                checkAnswer(choice);
+            });
+        });
+    };
+        // Attach an event listener to each answer choice button so that when the user clicks a button, it calls the checkAnswer function.
     
-    
-    // Display the question text and answer choices on the screen.
-    
-    
-    // Attach an event listener to each answer choice button so that when the user clicks a button, it calls the checkAnswer function.
-    
-    
-    // Create a function to check the user's answer to a question. This function should compare the user's answer to the correct answer for the current question, and update the score and timer accordingly. It should then move on to the next question by incrementing the current question index and calling the display question function again, or end the game if all questions have been answered or the timer has reached 0.
     //Create a function called checkAnswer that takes the user's answer as an argument.
     
     
@@ -80,7 +86,6 @@ let displayQuestion = function() {
     
     // If there are no more questions left, call the endGame function. Otherwise, call the displayQuestion function to display the next question.
     
-};
 
 // Create a function to start the game when the user clicks the start button. This function should initialize the global variables, start the timer, and display the first question.
     //    Create a function called startGame.
@@ -89,7 +94,7 @@ let displayQuestion = function() {
         //remove introduction content
         questionEl.textContent = "";
         choiceEl.textContent = "";
-        buttonEl.style.display = "none";
+        startButton.style.display = "none";
     
         // Set the initial values for the global variables.
         
@@ -132,6 +137,6 @@ let displayQuestion = function() {
 
 
     //Attach an event listener to the start button element that calls the startGame function when the button is clicked.
-buttonEl.addEventListener("click", function() {
+startButton.addEventListener("click", function() {
     startQuiz();
 });
