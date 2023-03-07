@@ -1,6 +1,8 @@
-// Define global variables such as the timer, the time left, and the index of the current question.
-    //Create variables for timer, timeLeft, score, and currentQuestionIndex, and set them to initial values.
 
+//Create variables for timer, timeLeft, score, and currentQuestionIndex, and set them to initial values.
+let startButton = document.getElementById("startButton");
+let timer = document.getElementById("timer");
+let timeLeft = 60;
 
 // Define an array of objects to store the quiz questions, where each object contains the question text, an array of answer choices, and the correct answer.
     //Create an array of objects called quizQuestions, where each object has a question property, a choices property which is an array of answer choices, and an answer property that stores the correct answer.
@@ -8,17 +10,31 @@
 
 // Create a function to start the game when the user clicks the start button. This function should initialize the global variables, start the timer, and display the first question.
     //    Create a function called startGame.
+let startQuiz = function() {
 
+    
+    // Set the initial values for the global variables.
+    
+    
+    // Start the timer using setInterval, which will decrement the timeLeft variable by 1 every second and update the timer display on the screen.
+    let countdown = function() {
 
-        // Set the initial values for the global variables.
+        let timerInterval = setInterval(function() {
+            timeLeft--;
+            timer.textContent = "Time: " + timeLeft + " seconds left";
+            
+            if(timeLeft === 0) {
+                clearInterval(timerInterval);
+                timer.textContent = "Out of time!";
+            };
+        }, 1000);
+    };
+    countdown();
 
-
-        // Start the timer using setInterval, which will decrement the timeLeft variable by 1 every second and update the timer display on the screen.
-
-
-        // Call the displayQuestion function to display the first question.
-
-
+    // Call the displayQuestion function to display the first question.
+    
+    
+}
 // Create a function to display a question on the screen. This function should use the current question index to retrieve the question object from the array, and then display the question text and answer choices on the screen.
     //Create a function called displayQuestion.
 
@@ -72,3 +88,6 @@
 
 
     //Attach an event listener to the start button element that calls the startGame function when the button is clicked.
+startButton.addEventListener("click", function() {
+    startQuiz();
+});
