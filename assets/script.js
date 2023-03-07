@@ -1,8 +1,16 @@
-
 //Create variables for timer, timeLeft, score, and currentQuestionIndex, and set them to initial values.
-let startButton = document.getElementById("startButton");
+let buttonEl = document.getElementById("buttonEl");
 let timer = document.getElementById("timer");
+let questionEl = document.getElementById("questionEl");
+let choiceEl = document.getElementById("choiceEl")
+
+//timer starting time
 let timeLeft = 60;
+
+//initial page rendering
+questionEl.textContent = "Coding Quiz Challenge";
+choiceEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+buttonEl.textContent = "START QUIZ";
 
 // Define an array of objects to store the quiz questions, where each object contains the question text, an array of answer choices, and the correct answer.
     //Create an array of objects called quizQuestions, where each object has a question property, a choices property which is an array of answer choices, and an answer property that stores the correct answer.
@@ -15,7 +23,6 @@ let startQuiz = function() {
     
     // Set the initial values for the global variables.
     
-    
     // Start the timer using setInterval, which will decrement the timeLeft variable by 1 every second and update the timer display on the screen.
     let countdown = function() {
 
@@ -23,9 +30,9 @@ let startQuiz = function() {
             timeLeft--;
             timer.textContent = "Time: " + timeLeft + " seconds left";
             
-            if(timeLeft === 0) {
-                clearInterval(timerInterval);
+            if(timeLeft <= 0) {
                 timer.textContent = "Out of time!";
+                endGame();
             };
         }, 1000);
     };
@@ -72,15 +79,16 @@ let startQuiz = function() {
 
 // Create a function to end the game when all questions have been answered or the timer has reached 0. This function should stop the timer, display the final score on the screen, and provide a way for the user to enter their initials and save their score.
     //Create a function called endGame.
+    function endGame() {
 
-
-    // Stop the timer using clearInterval.
-
-
-    // Display the final score on the screen.
-
-
-    // Provide a form for the user to enter their initials and save their score.
+        // Stop the timer using clearInterval.
+        clearInterval(timer);
+        
+        // Display the final score on the screen.
+        
+        
+        // Provide a form for the user to enter their initials and save their score.
+    }
 
 
 // Attach an event listener to the start button to call the start game function when the button is clicked.
@@ -88,6 +96,6 @@ let startQuiz = function() {
 
 
     //Attach an event listener to the start button element that calls the startGame function when the button is clicked.
-startButton.addEventListener("click", function() {
+buttonEl.addEventListener("click", function() {
     startQuiz();
 });
