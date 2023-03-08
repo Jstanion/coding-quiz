@@ -7,6 +7,7 @@ let choiceEl = document.getElementById("choiceEl");
 let quizContainer = document.getElementById("quiz-container");
 let answerEl = document.getElementById("answerEl");
 let formEl = document.createElement("form");
+let highScore = document.getElementById("highscore");
 let intervalId;
 
 //Create variables for timer, timeLeft, and currentQuestionIndex, and set them to initial values.
@@ -162,6 +163,27 @@ startButton.addEventListener("click", function() {
     startQuiz();
 });
 
+var renderHighScores = function() {
+    let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    // Redirect to high scores page or display high scores on current page
+    let HighScoresList = document.getElementById("highscores-list");
+   
+    highScores.forEach(function(highScore, x) {
+
+            let highScoreItem = document.createElement("li");
+            highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
+            HighScoresList.appendChild(highScoreItem);
+            
+            console.log(highScore)
+    });
+};
+
+//Add event listener for highscore link
+highScore.addEventListener("click", function() {
+    renderHighScores();
+});
+
 // Add an event listener to the form that saves the score to local storage.
 formEl.addEventListener("submit", function(event) {
     event.preventDefault();
@@ -170,26 +192,28 @@ formEl.addEventListener("submit", function(event) {
     if (initials === "") {
       alert("Please enter your initials.");
       return;
-    }
+    };
+
+    renderHighScores();
     let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     highScores.push({ initials, score: timeLeft });
     localStorage.setItem("highScores", JSON.stringify(highScores));
 
-    // Redirect to high scores page or display high scores on current page
-    let HighScoresList = document.getElementById("highscores-list");
+    // // Redirect to high scores page or display high scores on current page
+    // let HighScoresList = document.getElementById("highscores-list");
    
-    highScores.forEach(function(highScore, x) {
-        if(x <= 5) {
+    // highScores.forEach(function(highScore, x) {
+    //     if(x <= 5) {
 
-            let highScoreItem = document.createElement("li");
-            highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
-            HighScoresList.appendChild(highScoreItem);
+    //         let highScoreItem = document.createElement("li");
+    //         highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
+    //         HighScoresList.appendChild(highScoreItem);
             
-            console.log(highScore)
-        } else {
-            return;
-        };
-    });
+    //         console.log(highScore)
+    //     } else {
+    //         return;
+    //     };
+    // });
 
 });
 
