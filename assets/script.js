@@ -177,12 +177,20 @@ formEl.addEventListener("submit", function(event) {
 
     // Redirect to high scores page or display high scores on current page
     let HighScoresList = document.getElementById("highscores-list");
-    highScores.forEach(function(highScore) {
-        let highscoreItem = document.createElement("li").textContent = "highScore: " + highScores.score;
-        HighScoresList.appendChild(highscoreItem);
+   
+    highScores.forEach(function(highScore, x) {
+        if(x <= 5) {
 
-        console.log(highScore)
+            let highScoreItem = document.createElement("li");
+            highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
+            HighScoresList.appendChild(highScoreItem);
+            
+            console.log(highScore)
+        } else {
+            return;
+        };
     });
 
 });
+
 
