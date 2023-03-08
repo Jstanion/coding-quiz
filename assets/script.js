@@ -198,23 +198,9 @@ formEl.addEventListener("submit", function(event) {
     let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     highScores.push({ initials, score: timeLeft });
     localStorage.setItem("highScores", JSON.stringify(highScores));
-
-    // // Redirect to high scores page or display high scores on current page
-    // let HighScoresList = document.getElementById("highscores-list");
-   
-    // highScores.forEach(function(highScore, x) {
-    //     if(x <= 5) {
-
-    //         let highScoreItem = document.createElement("li");
-    //         highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
-    //         HighScoresList.appendChild(highScoreItem);
-            
-    //         console.log(highScore)
-    //     } else {
-    //         return;
-    //     };
-    // });
-
 });
+
+
+
 
 
