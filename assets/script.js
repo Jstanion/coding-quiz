@@ -10,7 +10,6 @@ let formEl = document.createElement("form");
 let intervalId;
 
 //Create variables for timer, timeLeft, and currentQuestionIndex, and set them to initial values.
-let score = 0;
 let timeLeft = 60;
 let currentQuestionIndex = 0;
 
@@ -38,7 +37,7 @@ let quizQuestions = [
         answer: "Either One"
     },
     {
-        question: "JavaScript is the same as Java",
+        question: "JavaScript is the same as Java.",
         choices: ["True", "False"],
         answer: "False"
     },
@@ -71,7 +70,7 @@ let displayQuestion = function() {
         choiceEl.appendChild(button);
         
         // Styling attributes
-        choiceEl.setAttribute("style", "display: flex; flex-direction: column; justify-content: center; align-items: center;")
+        choiceEl.setAttribute("style", "display: flex; flex-direction: column; justify-content: center; align-items: center;");
         button.setAttribute("style", "background-color: green; color: white; border-radius: 25px; margin: 10px;");
 
         // Attach an event listener to each answer choice button so that when the user clicks a button, it calls the checkAnswer function.
@@ -87,9 +86,10 @@ let checkAnswer = function(userAnswer) {
     let currentQuestion = quizQuestions[currentQuestionIndex];
     
     // Compare the user's answer to the correct answer for the current question.
+    console.log(userAnswer, currentQuestion.answer);
     if (userAnswer === currentQuestion.answer) {
+        
         // If the user's answer is correct, increment the score variable and display a message indicating the answer is correct.
-        score++;
         answerEl.textContent = "Correct!";
     } else {
         // If the user's answer is incorrect, decrement the timeLeft variable by 10 seconds and display a message indicating the answer is incorrect.
@@ -102,7 +102,6 @@ let checkAnswer = function(userAnswer) {
     
     // If there are no more questions left, call the endGame function. Otherwise, call the displayQuestion function to display the next question.
     if (currentQuestionIndex >= quizQuestions.length) {
-        clearInterval(intervalId);
         endGame();
     } else {
         displayQuestion();
@@ -125,7 +124,6 @@ let startQuiz = function() {
             
             if(timeLeft <= 0) {
                 timeEl.textContent = "Out of time!";
-                clearInterval(intervalId);
                 endGame();
             };
         }, 1000);
@@ -139,9 +137,10 @@ let startQuiz = function() {
 //Create a function called endGame.
 function endGame() {
     let button = document.createElement("button");
-
+    clearInterval(intervalId);
     // Display the final score on the screen.
     if(timeLeft >= 1) {
+        timeEl.textContent = "Time: " + timeLeft + " seconds left";
         questionEl.textContent = "Conratulations! You finished the quiz.";
         choiceEl.textContent = "Your final score is: " + timeLeft + " point(s)";
     } else {
@@ -175,8 +174,15 @@ formEl.addEventListener("submit", function(event) {
     let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
     highScores.push({ initials, score: timeLeft });
     localStorage.setItem("highScores", JSON.stringify(highScores));
-    // Redirect to high scores page or display high scores on current page
 
+    // Redirect to high scores page or display high scores on current page
+    let HighScoresList = document.getElementById("highscores-list");
+    highScores.forEach(function(highScore) {
+        let highscoreItem = document.createElement("li").textContent = "highScore: " + highScores.score;
+        HighScoresList.appendChild(highscoreItem);
+
+        console.log(highScore)
+    });
 
 });
 
