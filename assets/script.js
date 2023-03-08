@@ -163,16 +163,16 @@ startButton.addEventListener("click", function() {
     startQuiz();
 });
 
-var renderHighScores = function() {
+let renderHighScores = function() {
     let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
     // Redirect to high scores page or display high scores on current page
     let HighScoresList = document.getElementById("highscores-list");
    
-    highScores.forEach(function(highScore, x) {
+    highScores.forEach(function(highScore) {
 
             let highScoreItem = document.createElement("li");
-            highScoreItem.textContent = "highScore: " + highScore.score + " Initials: " + highScore.initials;
+            highScoreItem.textContent = "Initials: " + highScore.initials + " Score: " + highScore.score;
             HighScoresList.appendChild(highScoreItem);
             
             console.log(highScore)
